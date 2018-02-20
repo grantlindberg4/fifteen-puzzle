@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.board = FifteenBoard()
         self.board!.scramble(numTimes: numShuffles)
+        
         return true
     }
 

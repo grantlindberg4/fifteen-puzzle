@@ -20,7 +20,7 @@ class FifteenBoard {
     }
     
     func getTile(atRow r: Int, atColumn c: Int) -> Int {
-        return 0
+        return self.state[r][c]
     }
     
     func getRowAndColumn(forTile tile: Int) -> (row: Int, column: Int) {
