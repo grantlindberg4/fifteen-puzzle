@@ -21,5 +21,6 @@ class ViewController: UIViewController {
     }
 
 
+    @IBOutlet weak var boardView: BoardView!
 }
 
