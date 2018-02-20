@@ -23,8 +23,14 @@ class FifteenBoard {
         return self.state[r][c]
     }
     
-    func getRowAndColumn(forTile tile: Int) -> (row: Int, column: Int) {
-        return (0, 0)
+    func getRowAndColumn(forTile tile: Int) -> (row: Int, column: Int)? {
+        for (r, row) in self.state.enumerated() {
+            if let c = row.index(of: tile) {
+                return (r, c)
+            }
+        }
+        
+        return nil
     }
     
     func isSolved() -> Bool {
@@ -32,25 +38,64 @@ class FifteenBoard {
     }
     
     func canSlideTileUp(atRow r: Int, Column c: Int) -> Bool {
-        return false
+        if r == 0 {
+            return false
+        }
+        
+        return self.getTile(atRow: r-1, atColumn: c) == 0
     }
     
     func canSlideTileDown(atRow r: Int, Column c: Int) -> Bool {
-        return false
+        if r == 3 {
+            return false
+        }
+        
+        return self.getTile(atRow: r+1, atColumn: c) == 0
     }
     
     func canSlideTileLeft(atRow r: Int, Column c: Int) -> Bool {
-        return false
+        if c == 0 {
+            return false
+        }
+        
+        return self.getTile(atRow: r, atColumn: c-1) == 0
     }
     
     func canSlideTileRight(atRow r: Int, Column c: Int) -> Bool {
-        return false
+        if c == 3 {
+            return false
+        }
+        
+        return self.getTile(atRow: r, atColumn: c+1) == 0
     }
     
     func canSlideTile(atRow r: Int, Column c: Int) -> Bool {
-        return false
+        return self.canSlideTileUp(atRow: r, Column: c) ||
+               self.canSlideTileDown(atRow: r, Column: c) ||
+               self.canSlideTileLeft(atRow: r, Column: c) ||
+               self.canSlideTileRight(atRow: r, Column: c)
     }
     
     func slideTile(atRow r: Int, Column c: Int) {
+        if self.canSlideTileUp(atRow: r, Column: c) {
+            let current = self.getTile(atRow: r, atColumn: c)
+            self.state[r][c] = 0
+            self.state[r-1][c] = current
+        }
+        else if self.canSlideTileDown(atRow: r, Column: c) {
+            let current = self.getTile(atRow: r, atColumn: c)
+            self.state[r][c] = 0
+            self.state[r+1][c] = current
+        }
+        else if self.canSlideTileLeft(atRow: r, Column: c) {
+            let current = self.getTile(atRow: r, atColumn: c)
+            self.state[r][c] = 0
+            self.state[r][c-1] = current
+        }
+        else if self.canSlideTileRight(atRow: r, Column: c) {
+            let current = self.getTile(atRow: r, atColumn: c)
+            self.state[r][c] = 0
+            self.state[r][c+1] = current
+        }
     }
 }
