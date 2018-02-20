@@ -17,6 +17,22 @@ class FifteenBoard {
     ]
     
     func scramble(numTimes n: Int) {
+        for _ in 0 ..< n {
+            var candidates: [(Int, Int)?] = []
+            for r in 0 ..< 4 {
+                for c in 0 ..< 4 {
+                    if self.canSlideTile(atRow: r, Column: c) {
+                        let coords = self.getRowAndColumn(forTile: self.getTile(atRow: r, atColumn: c))!
+                        candidates.append(coords)
+                    }
+                }
+            }
+            
+            let i = Int(arc4random_uniform(UInt32(candidates.count)))
+            
+            let pos = candidates[i]
+            self.slideTile(atRow: pos!.0, Column: pos!.1)
+        }
     }
     
     func getTile(atRow r: Int, atColumn c: Int) -> Int {
