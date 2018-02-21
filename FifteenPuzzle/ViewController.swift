@@ -47,14 +47,13 @@ class ViewController: UIViewController {
         }
         if slide {
             board!.slideTile(atRow: pos!.row, Column: pos!.column)
-            sender.center = buttonCenter // or animate the change
+            UIView.animate(withDuration: 0.5, animations: {sender.center = buttonCenter})
             if (board!.isSolved()) {
                 // Restart the game
                 board?.scramble(numTimes: appDelegate.numShuffles)
             }
         }
     }
-        // celebrate victory
     
     @IBAction func shuffleTiles(_ sender: AnyObject) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
