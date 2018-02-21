@@ -50,7 +50,22 @@ class FifteenBoard {
     }
     
     func isSolved() -> Bool {
-        return false
+        var expected = 0
+        for r in 0 ..< 4 {
+            for c in 0 ..< 4 {
+                if expected == 15 {
+                    expected = 0
+                }
+                else {
+                    expected += 1
+                }
+                if self.getTile(atRow: r, atColumn: c) != expected {
+                    return false
+                }
+            }
+        }
+        
+        return true
     }
     
     func canSlideTileUp(atRow r: Int, Column c: Int) -> Bool {

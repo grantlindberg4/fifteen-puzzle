@@ -49,6 +49,8 @@ class ViewController: UIViewController {
             board!.slideTile(atRow: pos!.row, Column: pos!.column)
             sender.center = buttonCenter // or animate the change
             if (board!.isSolved()) {
+                // Restart the game
+                board?.scramble(numTimes: appDelegate.numShuffles)
             }
         }
     }
